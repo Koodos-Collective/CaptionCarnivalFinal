@@ -1,0 +1,32 @@
+{
+    "name": "memefest",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Koodos-Collective/MemeFest.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Koodos-Collective/MemeFest/issues"
+    },
+    "homepage": "https://github.com/Koodos-Collective/MemeFest#readme",
+    "dependencies": {
+        "discord": "^0.8.2",
+        "discord.js": "^12.5.1",
+        "dotenv": "^8.2.0",
+        "firebase": "^8.2.3",
+        "fs": "0.0.1-security",
+        "node-cron": "^2.0.3",
+        "node-html-to-image": "^3.1.0",
+        "nodemon": "^2.0.7",
+        "prettier": "^2.2.1",
+        "request": "^2.88.2"
+    }
+}
