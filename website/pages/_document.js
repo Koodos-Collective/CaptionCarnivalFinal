@@ -1,49 +1,86 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import React from 'react';
-import { ServerStyleSheet } from 'styled-components';
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import { ServerStyleSheet } from "styled-components";
 
-export default class MyDocument extends Document {
-    static getInitialProps({ renderPage }) {
+class MyDocument extends Document {
+    static async getInitialProps(ctx) {
         const sheet = new ServerStyleSheet();
+        const originalRenderPage = ctx.renderPage;
 
-        const page = renderPage(App => props =>
-            sheet.collectStyles(<App {...props} />),
-        );
+        try {
+            ctx.renderPage = () =>
+                originalRenderPage({
+                    enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
+                });
 
-        const styleTags = sheet.getStyleElement();
-
-        return { ...page, styleTags };
+            const initialProps = await Document.getInitialProps(ctx);
+            return {
+                ...initialProps,
+                styles: (
+                    <>
+                        {initialProps.styles}
+                        {sheet.getStyleElement()}
+                    </>
+                ),
+            };
+        } finally {
+            sheet.seal();
+        }
     }
 
     render() {
         return (
             <Html lang="en">
                 <Head>
-                    {this.props.styleTags}
-                    <meta
-                        name="author"
-                        content="Sirat Baweja and Hannah Guo (from koodos)"
-                    />
-                    <meta
-                        name="keywords"
-                        content="Caption Carnival, discord bot, meme, caption, carnival, discord, game, clown.fm, 🤡.fm"
-                    />
+                    <link rel="manifest" href="/manifest.json" />
                     <meta name="theme-color" content="#0f0f0f" />
-
-                    <meta name="next-head-count" content="21" />
-                    <link rel="icon" href="/favicon.ico" />
-                    <link rel="shortcut icon" href="/favicon.ico" />
-                    <link rel="preconnect" href="https://fonts.gstatic.com" />
+                    <link rel="icon" type="image/png" sizes="32x32" href="/icons/logo-32x32.png" />
+                    <link rel="icon" type="image/png" sizes="16x16" href="/icons/logo-16x16.png" />
+                    <link rel="apple-touch-icon" href="/icons/logo-96x96.png" />
                     <link
-                        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
-                        rel="stylesheet"
+                        rel="mask-icon"
+                        href="/icons/logo-safari-pinned-tab.svg"
+                        color="#0f0f0f"
+                    />
+                    <meta name="msapplication-TileColor" content="#0f0f0f" />
+                    <meta name="apple-mobile-web-app-status-bar" content="#0f0f0f" />
+                    <link
+                        rel="preload"
+                        href="/fonts/Karrik-Regular/Karrik-Regular.woff"
+                        as="font"
+                        crossOrigin=""
+                    />
+                    <link
+                        rel="preload"
+                        href="/fonts/Karrik-Regular/Karrik-Regular.woff2"
+                        as="font"
+                        crossOrigin=""
+                    />
+                    <link
+                        rel="preload"
+                        href="/fonts/Karrik-Italic/Karrik-Italic.woff"
+                        as="font"
+                        crossOrigin=""
+                    />
+                    <link
+                        rel="preload"
+                        href="/fonts/Karrik-Italic/Karrik-Italic.woff2"
+                        as="font"
+                        crossOrigin=""
                     />
                 </Head>
                 <body>
                     <Main />
                     <NextScript />
+                    <style jsx global>{`
+                        /* global style override */
+                        #__next {
+                            height: 100%;
+                        }
+                    `}</style>
                 </body>
             </Html>
         );
     }
 }
+
+export default MyDocument;

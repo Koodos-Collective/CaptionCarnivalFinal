@@ -1,11 +1,14 @@
-FROM node:14-alpine
+# example Dockerfile: https://github.com/Zenika/alpine-chrome/blob/master/with-puppeteer/Dockerfile
+FROM zenika/alpine-chrome:with-node
 
-RUN mkdir -p /usr/src/bot
-WORKDIR /usr/src/bot
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD 1
+ENV PUPPETEER_EXECUTABLE_PATH /usr/bin/chromium-browser
 
-COPY package.json .
+WORKDIR /usr/src/app
+COPY --chown=chrome package*.json ./
+
 RUN npm install
+COPY --chown=chrome . ./
 
-COPY . .
-
+ENTRYPOINT ["tini", "--"]
 CMD ["npm", "start"]

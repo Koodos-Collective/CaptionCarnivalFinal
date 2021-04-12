@@ -1,4 +1,7 @@
-config
+.env
+bot/.env
+local-circuit-297619-firebase-adminsdk-e7ql4-77f0551aae.json
+bot/local-circuit-297619-firebase-adminsdk-e7ql4-77f0551aae.json
 bot/node_modules/
 node_modules/
-koodos-meme-firebase-adminsdk-t4tt7-bb62dbbfcc.json
+.vscode/

@@ -1,0 +1,42 @@
+{
+    "name": "caption carnival",
+    "short_name": "CaptShon",
+    "theme_color": "#0f0f0f",
+    "background_color": "#0f0f0f",
+    "display": "browser",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "/icons/logo-16x16.png",
+            "type": "image/png",
+            "sizes": "16x16"
+        },
+        {
+            "src": "/icons/logo-32x32.png",
+            "type": "image/png",
+            "sizes": "32x32"
+        },
+        {
+            "src": "/logo-96x96.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "/logo-130x130.png",
+            "type": "image/png",
+            "sizes": "130x130"
+        },
+        {
+            "src": "/icons/logo-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/logo-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}

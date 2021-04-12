@@ -1,30 +1,22 @@
 const Discord = require("discord.js");
 
+// try it out with dynamic pagination
+// https://pastebin.com/QGVfutti
 module.exports = {
-    name: 'help',
-    description: 'Commands List for Cpt. Shon!',
+    name: "help",
+    description: "Commands List for Cpt. Shon!",
     guildOnly: false,
     dmOnly: false,
     execute(client, message, author, args, database) {
         let helpEmbed = new Discord.MessageEmbed()
             .setColor("#47EED2")
-            .setAuthor("Commands List", "https://koodos.com/koodos_logo.png", "https://www.google.ca")
-            .addFields({
-                name: '**▶️ ++help**',
-                value: 'Responds with this help menu'
-            }, {
-                name: '**▶️ ++about**',
-                value: 'Learn about Cpt. Shon!'
-            }, {
-                name: '**▶️ ++caption <caption>**',
-                value: 'Creates a new image for the given Caption Circus'
-            }, {
-                name: '**▶️ ++submit <image_url>**',
-                value: 'Submits the image to the current Caption Circus'
-            }, )
-
+            .setTitle("Help Menu")
+            .setURL("https://🤡.fm")
+            .setDescription(
+                "Hey there :eyes: Do you want to find out more about this game? Then, you can use the `++commands` command to know more about each command, or the `++about` command to find out more info about the creators of this game.",
+            );
         message.channel.send({
-            embed: helpEmbed
+            embed: helpEmbed,
         });
-    }
+    },
 };

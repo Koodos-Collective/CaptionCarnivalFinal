@@ -1,0 +1,12 @@
+.next/
+node_modules/
+yarn-error.log
+
+.git/
+.gitignore
+
+.babelrc
+.prettierrc
+.gcloudignore
+
+README.md

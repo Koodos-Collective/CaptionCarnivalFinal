@@ -1,10 +1,14 @@
 {
     "name": "memefest",
     "version": "1.0.0",
+    "private": "true",
     "description": "",
     "main": "index.js",
+    "engines": {
+        "node": ">= 12.0.0"
+    },
     "scripts": {
-        "start": "nodemon index.js",
+        "start": "nodemon --trace-warnings index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -18,15 +22,19 @@
     },
     "homepage": "https://github.com/Koodos-Collective/MemeFest#readme",
     "dependencies": {
-        "discord": "^0.8.2",
+        "btoa": "^1.2.1",
+        "discord-paginationembed": "^2.1.0",
         "discord.js": "^12.5.1",
         "dotenv": "^8.2.0",
-        "firebase": "^8.2.3",
-        "fs": "0.0.1-security",
-        "node-cron": "^2.0.3",
+        "express": "^4.17.1",
+        "firebase": "^8.3.1",
+        "firebase-admin": "^9.5.0",
         "node-html-to-image": "^3.1.0",
         "nodemon": "^2.0.7",
-        "prettier": "^2.2.1",
+        "puppeteer": "^8.0.0",
         "request": "^2.88.2"
+    },
+    "devDependencies": {
+        "prettier": "^2.2.1"
     }
 }

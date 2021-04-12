@@ -1,65 +1,66 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import Layout from '../components/Layout';
-import rainbow from '../styles/RainbowAnimation';
+import Layout from "@components/Layout";
+import { StyledTitle } from "@components/Headings";
+import { CommandsCard } from "@components/Cards";
 
-const Div = styled.div`
+const CommandWrapper = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
 
-    & h1 {
-        font-size: 4em;
-        padding-top: 1.5em;
-    }
+    padding: 0 12.5vw;
 
-    & Image {
-        padding: 0.5em;
-    }
-
-    & .link {
-        cursor: pointer;
-        --anim: ${rainbow} 1.5s ease-in-out infinite;
-        color: white !important;
-        text-decoration: none !important;
-        text-size: 1.5em !important;
-
-        & :hover,
-        :visited {
-            font-style: oblique;
-            text-decoration: underline wavy white;
-            filter: brightness(150%);
-            animation: var(--anim);
-            -webkit-animation: var(--anim);
-            -moz-animation: var(--anim);
-            -o-animation: var(--anim);
-            -ms-animation: var(--anim);
-        }
+    @media (max-width: 768px) {
+        padding: 0;
     }
 `;
 
-export default function Commands() {
+const CommandsList = () => {
     return (
-        <Layout
-            pageTitle="Commands"
-            description="Commands for the Caption Carnival discord bot">
-            <Div>
-                <h1>Coming soon!</h1>
-                <Image
-                    src="/mascot.png"
-                    alt="mascot"
-                    width={225}
-                    height={250}
-                    layout="fixed"
-                />
-                <div className="link">
-                    <Link as="/" href="/">
-                        Go back
-                    </Link>
-                </div>
-            </Div>
+        <CommandWrapper>
+            <CommandsCard
+                name="++help"
+                description="Responds with this help menu for all players"
+                type="all"
+            />
+            <CommandsCard
+                name="++about"
+                description="Lets you learn about Capt. Shon and the people behind this game."
+                type="all"
+            />
+            <CommandsCard
+                name="++caption <caption>"
+                description="Creates a new image for an ongoing Caption Circus."
+                type="all"
+            />
+            <CommandsCard
+                name="++create <channel_name> <image_url>"
+                description="Creates a new Caption Circus with the given Image URL, and creates a separate channel with the given name to hold the carnival."
+                type="admin"
+            />
+            <CommandsCard
+                name="++setup"
+                description="Allows you to setup roles before the Caption Circus starts."
+                type="admin"
+            />
+            <CommandsCard
+                name="++cancel"
+                description="Cancels the current Caption Circus. It's gone!"
+                type="admin"
+            />
+        </CommandWrapper>
+    );
+};
+
+const Commands = () => {
+    return (
+        <Layout pageTitle="commands" description="commands">
+            <StyledTitle>commands</StyledTitle>
+            <CommandsList />
         </Layout>
     );
-}
+};
+
+export default Commands;

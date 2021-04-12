@@ -1,18 +1,36 @@
 {
-    "name": "captshon",
+    "name": "caption-carnival-website",
     "version": "0.1.0",
     "private": true,
+    "engines": {
+        "node": "12.x"
+    },
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
-        "start": "next start"
+        "gcp-predeploy": "find ./build -name '\\[...*' -exec bash -c 'mv \"$1\" \"${1/.../@@@}\"' -- {} \\;",
+        "gcp-build": "find ./build -name '\\[@@@*' -exec bash -c 'mv \"$1\" \"${1/@@@/...}\"' -- {} \\;",
+        "build": "rm -rf ./build && cross-env NODE_ENV=production next build",
+        "start": "next start -p 8080",
+        "deploy": "npm run build && npm run gcp-predeploy && gcloud app deploy"
     },
     "dependencies": {
-        "next": "10.0.5",
-        "prettier": "^2.2.1",
-        "react": "17.0.1",
-        "react-component-export-image": "^1.0.5",
-        "react-dom": "17.0.1",
-        "styled-components": "^5.2.1"
+        "cross-env": "^7.0.3",
+        "firebase": "^8.3.0",
+        "next": "^10.0.9",
+        "next-plugin-preact": "^3.0.3",
+        "preact": "^10.5.13",
+        "preact-render-to-string": "^5.1.16",
+        "react": "npm:@preact/compat@0.0.4",
+        "react-dom": "npm:@preact/compat@0.0.4",
+        "react-firebase-hooks": "^3.0.2",
+        "react-icons": "^4.2.0",
+        "react-is": "^17.0.1",
+        "react-ssr-prepass": "npm:preact-ssr-prepass",
+        "styled-components": "^5.2.1",
+        "swr": "^0.5.4"
+    },
+    "devDependencies": {
+        "babel-plugin-styled-components": "^1.12.0",
+        "prettier": "^2.2.1"
     }
 }

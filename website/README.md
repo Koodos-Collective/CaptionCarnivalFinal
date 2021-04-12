@@ -1,34 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# caption carnival
 
-## Getting Started
+led by the great ol' capt. shon, this is a discord game that allows you to have a 🎡 caption carnival 🎪 in your puny lil' discord server [coming soon]
 
-First, run the development server:
+## old dockerfile
 
-```bash
-npm run dev
-# or
-yarn dev
+```Dockerfile
+# old Dockerfile
+FROM node:14.14.0-alpine
+
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY package.json /app/
+COPY yarn.lock /app/
+RUN yarn install
+
+COPY . /app
+RUN yarn build
+
+EXPOSE 8080
+CMD [ "yarn", "start" ]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## old deploy.sh file
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```bash
+#!/bin/bash
+set -e
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+IMAGE_TAG=`git rev-parse HEAD`
+REPO_NAME="caption-carnival-website"
+GCP_PROJECT_NAME="local-circuit-297619"
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+docker build . -t $REPO_NAME:$IMAGE_TAG
+# docker run -it -e PORT=8080 -p 8080:8080 $REPO_NAME:$IMAGE_TAG
+docker tag $REPO_NAME gcr.io/$GCP_PROJECT_NAME/$REPO_NAME:$IMAGE_TAG
+docker push gcr.io/$GCP_PROJECT_NAME/$REPO_NAME:$IMAGE_TAG
 
-## Learn More
+gcloud beta run deploy $REPO_NAME --image gcr.io/$GCP_PROJECT_NAME/$REPO_NAME:$IMAGE_TAG \
+  --project $GCP_PROJECT_NAME \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated
+```
 
-To learn more about Next.js, take a look at the following resources:
+## scripts with docker
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```json
+(...)
+"scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start -p $PORT"
+    },
+(...)
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## current app.yaml file
 
-## Deploy on Vercel
+```yaml
+runtime: nodejs
+env: flex
+automatic_scaling:
+    cool_down_period_sec: 180
+    cpu_utilization:
+        target_utilization: 0.9
+resources:
+    cpu: 2
+    memory_gb: 2.5
+    disk_size_gb: 10
+readiness_check:
+    app_start_timeout_sec: 1800
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## deploying app on app engine
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+gcloud app deploy --project local-circuit-297619
+```

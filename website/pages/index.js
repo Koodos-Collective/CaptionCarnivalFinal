@@ -1,16 +1,16 @@
-import Layout from '../components/Layout';
-import Title from '../components/title/Title';
-import HomePage from '../components/body/Content';
-import Footer from '../components/footer/Footer';
+import Layout from "@components/Layout";
 
-export default function Main() {
+import { StyledTitle, MainTitle } from "@components/Headings";
+import Content from "@components/Content";
+
+const Home = () => {
     return (
-        <Layout
-            pageTitle="Caption Carnival"
-            description="create a caption carnival in your discord server today!!!">
-            <Title />
-            <HomePage />
-            <Footer />
+        <Layout pageTitle="index" description="this is the index">
+            {/* <StyledTitle>caption carnival</StyledTitle> */}
+            <MainTitle />
+            <Content />
         </Layout>
     );
-}
+};
+
+export default Home;
