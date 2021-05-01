@@ -22,7 +22,7 @@
         "preact-render-to-string": "^5.1.16",
         "react": "npm:@preact/compat@0.0.4",
         "react-dom": "npm:@preact/compat@0.0.4",
-        "react-firebase-hooks": "^3.0.2",
+        "react-firebase-hooks": "^3.0.4",
         "react-icons": "^4.2.0",
         "react-is": "^17.0.1",
         "react-ssr-prepass": "npm:preact-ssr-prepass",
